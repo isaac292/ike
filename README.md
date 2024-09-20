@@ -84,7 +84,7 @@ IkeMarfo is an e-commerce platform designed to provide users with a seamless sho
    ```
 3. Install dependencies:
    ```bash
-   npm install
+  sudo npm install --force
    ```
 
 ### Project Structure
