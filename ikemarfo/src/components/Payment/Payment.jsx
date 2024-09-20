@@ -15,7 +15,7 @@ import {
 
 const Payment = () => {
   const [orderData, setOrderData] = useState({});
-  const [paymentMethod, setPaymentMethod] = useState(""); // Tracks selected payment method
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [amountToPay, setAmountToPay] = useState(0);
   const [remainingAmount, setRemainingAmount] = useState(0);
   const { user } = useSelector((state) => state.user);
@@ -23,11 +23,11 @@ const Payment = () => {
   const toast = useToast();
 
   useEffect(() => {
-    const storedOrderData = JSON.parse(localStorage.getItem("latestOrder")) || {};
+    const storedOrderData =
+      JSON.parse(localStorage.getItem("latestOrder")) || {};
     setOrderData(storedOrderData);
-    setRemainingAmount(storedOrderData.totalPrice || 0); // Initialize remaining amount
+    setRemainingAmount(storedOrderData.totalPrice || 0);
 
-    // Load Paystack script for Paystack option
     const script = document.createElement("script");
     script.src = "https://js.paystack.co/v1/inline.js";
     script.async = true;
@@ -42,6 +42,8 @@ const Payment = () => {
     const value = parseFloat(e.target.value) || 0;
     if (value <= remainingAmount) {
       setAmountToPay(value);
+      // Update remaining amount based on the input amount
+      setRemainingAmount((prevRemaining) => prevRemaining - value);
     } else {
       toast({
         title: "Invalid Amount",
@@ -55,9 +57,16 @@ const Payment = () => {
 
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
-    if (method !== "paystack-installment") {
-      setAmountToPay(0); // Reset amount to pay if not installment
-      setRemainingAmount(orderData.totalPrice); // Reset remaining amount
+
+    if (method === "paystack") {
+      setAmountToPay(orderData.totalPrice);
+      setRemainingAmount(0);
+    } else if (method === "paystack-installment") {
+      setAmountToPay(0);
+      setRemainingAmount(orderData.totalPrice);
+    } else {
+      setAmountToPay(0);
+      setRemainingAmount(orderData.totalPrice);
     }
   };
 
@@ -81,7 +90,7 @@ const Payment = () => {
         email: user?.email || document.getElementById("email-address").value,
         amount: Math.round(amountToPay * 100), // Convert to kobo
         currency: "GHS",
-        ref: "" + Math.floor(Math.random() * 1000000000 + 1), // Generate a pseudo-unique reference
+        ref: "" + Math.floor(Math.random() * 1000000000 + 1),
         onClose: function () {
           toast({
             title: "Payment Cancelled",
@@ -123,11 +132,14 @@ const Payment = () => {
       },
     };
 
+    const updatedRemainingAmount = remainingAmount - amountToPay;
+
     const order = {
       cart: orderData.cart,
       shippingAddress: orderData.shippingAddress,
       user: user && user,
-      totalPrice: amountToPay, // Only record the amount paid in this installment
+      totalPrice: amountToPay,
+      amountRemaining: updatedRemainingAmount || "", // Include amountRemaining
       paymentInfo: {
         id: paymentInfo.reference,
         status: "succeeded",
@@ -138,6 +150,8 @@ const Payment = () => {
     await axios
       .post(`${server}/order/create-order`, order, config)
       .then((res) => {
+        setRemainingAmount(updatedRemainingAmount);
+
         navigate("/order/success");
         toast({
           title: "Order Successful",
@@ -209,7 +223,10 @@ const Payment = () => {
     e.preventDefault();
     if (paymentMethod === "cod") {
       handleCashOnDelivery();
-    } else if (paymentMethod === "paystack" || paymentMethod === "paystack-installment") {
+    } else if (
+      paymentMethod === "paystack" ||
+      paymentMethod === "paystack-installment"
+    ) {
       payWithPaystack(e);
     } else {
       toast({
@@ -228,8 +245,10 @@ const Payment = () => {
         <RadioGroup onChange={handlePaymentMethodChange} value={paymentMethod}>
           <Stack direction="column">
             <Radio value="cod">Cash on Delivery</Radio>
-            <Radio value="paystack">Pay with Paystack (Full Payment)</Radio>
-            <Radio value="paystack-installment">Pay Installment with Paystack</Radio>
+            <Radio value="paystack">Pay (Full Payment)</Radio>
+            <Radio value="paystack-installment">
+              Pay Installment
+            </Radio>
           </Stack>
         </RadioGroup>
 
@@ -244,13 +263,11 @@ const Payment = () => {
             <Box mt={2}>Remaining Amount: GHS {remainingAmount}</Box>
           </Box>
         )}
-
         <Button
           onClick={handleSubmit}
           colorScheme="red"
           mt={5}
-          width="full"
-          size="lg"
+          size="sm" // You can keep this to maintain a smaller button
         >
           Proceed to Pay
         </Button>
