@@ -2,14 +2,14 @@ import React from "react";
 import Image1 from "../../assets/hero/women.png";
 import Image2 from "../../assets/hero/shopping.png";
 import Image3 from "../../assets/hero/sale.png";
-import Image4 from "../../assets/logo.png";
+import Image4 from "../../assets/dd.png";
 import Slider from "react-slick";
 
 const ImageList = [
   {
     id: 1,
     img: Image4,
-    title: "Capital Computers ",
+    title: "IkeMarfo",
     description:
       "We Sell Quality Yet Affordable Devices.",
   },

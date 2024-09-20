@@ -5,7 +5,7 @@ import { AiOutlineHeart, AiOutlineSearch, AiOutlineShoppingCart } from "react-ic
 
 import { CgProfile } from "react-icons/cg";
 import { RxCross1 } from "react-icons/rx";
-import Logo from "../../../assets/logo.png";
+import Logo from "../../../assets/dd.png";
 import DarkMode from "./DarkMode";
 
 
@@ -54,7 +54,7 @@ const DashboardHeader = () => {
           <div className="container flex justify-between items-center">
             <Link to="/" className="font-bold text-base flex gap-2">
               <img src={Logo} alt="Logo" className="w-10" />
-              Capital Computers
+              IkeMarfo
             </Link>
             <div className="flex items-center gap-4">
               <div className="relative group hidden sm:block">

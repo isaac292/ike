@@ -20,7 +20,7 @@ const Banner = () => {
           {/* text details section */}
           <div className="flex flex-col justify-center gap-6 sm:pt-0">
             <h1 data-aos="fade-up" className="text-3xl sm:text-4xl font-bold">
-              Capital Computers Gives Discount Sale up to 50% Off
+              IkeMarfo Gives Discount Sale up to 50% Off
             </h1>
             <p
               data-aos="fade-up"

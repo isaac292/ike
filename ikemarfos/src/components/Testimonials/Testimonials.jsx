@@ -5,7 +5,7 @@ const TestimonialData = [
   {
     id: 1,
     name: "Victor Afriyie",
-    text: "What Amazes Me Is How Peter(The Boss) Have Time To Guide You During Your Purchase",
+    text: "What Amazes Me Is How IkeMarfo(The Boss) Have Time To Guide You During Your Purchase",
     img: "https://media.licdn.com/dms/image/C4E03AQFclH8SiauYRg/profile-displayphoto-shrink_800_800/0/1619999086581?e=2147483647&v=beta&t=ssKjJymSBcvvnvHeYDSRq0o0ExHLxACEU5WY0ePc_2k",
   },
   {
@@ -17,7 +17,7 @@ const TestimonialData = [
   {
     id: 3,
     name: "Daniel Adjei",
-    text: "Capital Computers Helped Me Setup My Schools Computer Lab With Ease.",
+    text: "IkeMarfo Helped Me Setup My Schools Computer Lab With Ease.",
     img: "https://media.licdn.com/dms/image/D4D03AQEMQx3EJmw4Kg/profile-displayphoto-shrink_800_800/0/1692581215570?e=2147483647&v=beta&t=hcqc2Wvtn9A5sqYkFxU-MxzXRXVgyDs1vQljJ4ma3XE",
   },
   {

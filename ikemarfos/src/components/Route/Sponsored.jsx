@@ -9,7 +9,7 @@ const Sponsored = () => {
       <div className="flex justify-between w-full">
         <div className="flex items-start">
           <img
-            src="https://logos-world.net/wp-content/uploads/2020/04/Sony-Logo.png"
+            src="https://logos-world.net/wp-content/uploads/2020/04/Sony-dd.png"
             alt=""
             style={{width:"150px", objectFit:"contain"}}
           />
