@@ -76,7 +76,7 @@ IkeMarfo is an e-commerce platform designed to provide users with a seamless sho
 ### Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-repo/ikemarfo.git
+   git clone https://github.com/isaac292/ikemarfo
    ```
 2. Navigate to the project directory:
    ```bash
